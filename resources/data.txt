@@ -1,0 +1,9 @@
+4756836b-cd04-4ddb-8a7a-f95b9f26ad18:Tester:McTesterson:test@revature.com:tester:test
+c0bb9bbb-4977-4e9c-b2cb-a97e0d7acb18:Wezley:Singleton:wezley.singleton@revature.com:wsingleton:password
+ca7e11e1-7872-4d98-904e-84052a3a5abc:Alice:Anderson:alice.anderson@revature.com:aanderson:password
+e219bb52-0cd7-4e1b-b23a-7c4a6a39be2f:valid:valid:valid:valid:valid
+e135c6c3-3c62-48c6-85c6-b8658d3e4e0f:valid:valid:valid:valid:valid
+ba680422-226e-4440-9f59-4cafb51db8df:valid:valid:valid:valid:valid
+f9002d3e-17f7-43a8-acf3-331815ce2ce6:valid:valid:valid:valid:valid
+37d3337e-92ee-4ba1-918d-338e68286323:valid:valid:valid:valid:valid
+8afee8e0-46ff-49cf-bc37-e1ecd646f26f:valid:valid:valid:valid:valid
