@@ -1,6 +1,7 @@
 package com.revature.quizzard.screens;
 
 import com.revature.quizzard.exceptions.AuthenticationException;
+import com.revature.quizzard.exceptions.InvalidRequestException;
 import com.revature.quizzard.models.AppUser;
 import com.revature.quizzard.services.UserService;
 import com.revature.quizzard.util.ScreenRouter;
@@ -27,11 +28,10 @@ public class LoginScreen extends Screen {
         String password = consoleReader.readLine();
 
         try {
-            AppUser authenticatedUser = userService.authenticateUser(username, password);
-            System.out.println("Credentials validated, matching user found: " + authenticatedUser);
+            userService.authenticateUser(username, password);
             router.navigate("/dashboard");
-        } catch (AuthenticationException e) {
-            System.out.println("Incorrect credentials provided! No matching user account found.");
+        } catch (InvalidRequestException | AuthenticationException e) {
+            System.out.println(e.getMessage());
         }
 
     }
