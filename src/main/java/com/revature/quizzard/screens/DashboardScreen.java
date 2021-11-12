@@ -29,10 +29,12 @@ public class DashboardScreen extends Screen {
         while (userService.isSessionActive()) {
             System.out.printf("\n%s's Dashboard\n", sessionUser.getFirstName());
 
-            String menu = "1) View/edit my profile information\n" +
-                    "2) View/create study sets\n" +
-                    "3) View/create flashcards\n" +
-                    "4) Logout\n" +
+            String menu =
+                    "1) Open a Bank account\n" +
+                    "2) Deposit funds into an account\n" +
+                    "3) Withdraw funds from an account\n" +
+                    "4) View the balance of my account(s)\n" +
+                    "5) Logout\n" +
                     "> ";
 
             System.out.print(menu);
@@ -50,6 +52,9 @@ public class DashboardScreen extends Screen {
                     System.out.println("View/edit flashcards selected");
                     break;
                 case "4":
+                    System.out.println("View/edit flashcards selected");
+                    break;
+                case "5":
                     userService.logout();
                     break;
                 default:
