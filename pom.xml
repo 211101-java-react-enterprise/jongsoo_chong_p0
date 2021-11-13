@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.revature</groupId>
-    <artifactId>banckjsc</artifactId>
+    <artifactId>quizzard</artifactId>
     <version>1.0.0</version>
 
     <properties>
