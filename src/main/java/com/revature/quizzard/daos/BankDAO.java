@@ -19,7 +19,7 @@ public class BankDAO implements CrudDAO<BankAccount> {
     public BankAccount save(BankAccount bankAccount) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
             bankAccount.setBank_account_id(UUID.randomUUID().toString());
-            String sql = "insert into bank_account (bank_account_id, account_name, account_type, creator_id) values (?, ?, ?, ?)";
+            String sql = "insert into bank_accounts (bank_account_id, account_name, account_type, creator_id) values (?, ?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, bankAccount.getBank_account_id());
             pstmt.setString(2, bankAccount.getAccountName());
@@ -48,7 +48,7 @@ public class BankDAO implements CrudDAO<BankAccount> {
     public BankTransaction save_transaction_tbl(BankTransaction bankTransaction) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
             bankTransaction.setBank_transaction_id(UUID.randomUUID().toString());
-            String sql = "insert into bank_transaction (bank_transaction_id, bank_account_id, trader_id, amount) values (?, ?, ?, ?)";
+            String sql = "insert into bank_transactions (bank_transaction_id, bank_account_id, trader_id, amount) values (?, ?, ?, ?)";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, bankTransaction.getBank_transaction_id());
             pstmt.setString(2, bankTransaction.getBank_account_id());
@@ -71,7 +71,7 @@ public class BankDAO implements CrudDAO<BankAccount> {
 
     public BankTransaction update_balance_in_account(BankTransaction bankTransaction) {
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            String sql = "update bank_account set balance = balance + ? where bank_account_id = ?";
+            String sql = "update bank_accounts set balance = balance + ? where bank_account_id = ?";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setDouble(1, bankTransaction.getAmount());
             pstmt.setString(2, bankTransaction.getBank_account_id());
@@ -92,7 +92,7 @@ public class BankDAO implements CrudDAO<BankAccount> {
         List<BankAccount> bank_accounts = new LinkedList<>();
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
             String sql = "select * " +
-                    "from bank_account b " +
+                    "from bank_accounts b " +
                     "join app_users u " +
                     "on b.creator_id = u.user_id " +
                     "where u.user_id = ? " +
@@ -121,8 +121,8 @@ public class BankDAO implements CrudDAO<BankAccount> {
         List<BankTransaction> bank_transactions = new LinkedList<>();
         try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
             String sql = "select *, t.date_added t_date_added " +
-                    "from bank_transaction t " +
-                    "join bank_account a " +
+                    "from bank_transactions t " +
+                    "join bank_accounts a " +
                     "on t.bank_account_id = a.bank_account_id " +
                     "join app_users u " +
                     "on t.trader_id = u.user_id " +

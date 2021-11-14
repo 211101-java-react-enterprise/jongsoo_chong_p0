@@ -29,6 +29,11 @@ public class ViewBalancesScreen extends Screen {
         try {
             NumberFormat formatter = NumberFormat.getCurrencyInstance();
             List<BankAccount> bankAccountLists = bankService.getBankAccountsByUserId();
+            if (bankAccountLists.size() == 0) {
+                System.out.println("You don't have an account.");
+                router.navigate("/dashboard");
+            }
+
             for (int i = 0; i < bankAccountLists.size(); i++) {
                 menu.append(i + 1);
                 menu.append(") ");
