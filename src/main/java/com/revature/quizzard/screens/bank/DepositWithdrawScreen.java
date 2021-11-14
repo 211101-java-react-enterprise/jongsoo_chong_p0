@@ -77,7 +77,9 @@ public class DepositWithdrawScreen extends Screen {
                 bankTransaction = bankService.transact(bankTransaction);
                 router.navigate("/dashboard");
             } catch (NotEnoughBalanceException e) {
+                System.out.println("------------------------------------------------\n");
                 System.out.println("Not enough balance");
+                System.out.println("------------------------------------------------\n");
                 router.navigate("/dashboard");
             } catch (InvalidRequestException | AuthenticationException e) {
                 System.out.println(e.getMessage());

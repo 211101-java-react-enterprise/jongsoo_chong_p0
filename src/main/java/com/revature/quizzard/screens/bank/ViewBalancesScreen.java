@@ -10,6 +10,7 @@ import com.revature.quizzard.util.ScreenRouter;
 import com.revature.quizzard.util.collections.List;
 
 import java.io.BufferedReader;
+import java.text.NumberFormat;
 
 public class ViewBalancesScreen extends Screen {
 
@@ -27,6 +28,7 @@ public class ViewBalancesScreen extends Screen {
                 new StringBuilder("\nView the balance of my account(s)\n");
 
         try {
+            NumberFormat formatter = NumberFormat.getCurrencyInstance();
             List<BankAccount> bankAccountLists = bankService.getBackAccountsByUserId();
             for (int i = 0; i < bankAccountLists.size(); i++) {
                 menu.append(i + 1);
@@ -34,8 +36,8 @@ public class ViewBalancesScreen extends Screen {
                 menu.append(bankAccountLists.get(i).getAccountType());
                 menu.append(" - ");
                 menu.append(bankAccountLists.get(i).getAccountName());
-                menu.append(" - $");
-                menu.append(bankAccountLists.get(i).getBalance());
+                menu.append(" - ");
+                menu.append(formatter.format(bankAccountLists.get(i).getBalance()));
                 menu.append("\n");
             }
 

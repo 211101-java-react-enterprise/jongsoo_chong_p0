@@ -48,6 +48,7 @@ public class AppState {
         router.addScreen(new RegisterScreen(consoleReader, router, userService));
         router.addScreen(new LoginScreen(consoleReader, router, userService));
         router.addScreen(new DashboardScreen(consoleReader, router, userService));
+
         router.addScreen(new OpenAccountScreen(consoleReader, router, bankService));
         router.addScreen(new DepositScreen(consoleReader, router, bankService));
         router.addScreen(new WithdrawScreen(consoleReader, router, bankService));

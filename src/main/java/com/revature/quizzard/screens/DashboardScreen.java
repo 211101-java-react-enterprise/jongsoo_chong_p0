@@ -26,7 +26,8 @@ public class DashboardScreen extends Screen {
         }
 
         while (userService.isSessionActive()) {
-            System.out.printf("\n%s's Dashboard\n", sessionUser.getFirstName());
+            System.out.println("\n------------------------------------------------");
+            System.out.printf("%s's Dashboard\n", sessionUser.getFirstName());
 
             String menu =
                     "1) Open a Bank account\n" +
@@ -65,7 +66,5 @@ public class DashboardScreen extends Screen {
                     System.out.println("You have made an invalid selection");
             }
         }
-
     }
-
 }

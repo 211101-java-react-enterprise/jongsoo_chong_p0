@@ -114,13 +114,11 @@ public class UserServiceTestSuite {
 
     @Test(expected = ResourcePersistenceException.class)
     public void test_registerNewUser_throwsResourcePersistenceException_givenValidUserWithTakenEmail() {
-
         // Arrange
         AppUser validUser = new AppUser("valid", "valid", "valid", "valid", "valid");
         when(mockUserDAO.findUserByUsername(validUser.getUsername())).thenReturn(null);
         when(mockUserDAO.findUserByEmail(validUser.getEmail())).thenReturn(new AppUser());
         when(mockUserDAO.save(validUser)).thenReturn(validUser);
-
         // Act
         try {
             boolean actualResult = sut.registerNewUser(validUser);
@@ -128,24 +126,51 @@ public class UserServiceTestSuite {
             // Assert
             verify(mockUserDAO, times(0)).save(validUser);
         }
-
     }
 
     @Test(expected = InvalidRequestException.class)
     public void test_registerNewUser_throwsInvalidRequestException_givenInvalidUser() {
-        sut.registerNewUser(null);
-    }
-
-    // TODO implement test case
-    @Test
-    public void test_registerNewUser_throwsInvalidRequestException_givenUserWithDuplicatedEmailOrUsername() {
-
         // Arrange
-
+        AppUser InvalidUser = new AppUser("  ", "valid", "valid", "valid", "valid");
+        when(mockUserDAO.findUserByUsername(InvalidUser.getUsername())).thenReturn(new AppUser());
+        when(mockUserDAO.findUserByEmail(InvalidUser.getEmail())).thenReturn(new AppUser());
+        when(mockUserDAO.save(InvalidUser)).thenReturn(InvalidUser);
         // Act
-
-        // Assert
-
+        try {
+            boolean actualResult = sut.registerNewUser(InvalidUser);
+        } finally {
+            // Assert
+            verify(mockUserDAO, times(0)).save(InvalidUser);
+        }
     }
 
+    @Test(expected = InvalidRequestException.class)
+    public void test_registerNewUser_throwsInvalidRequestException_givenUserWithDuplicatedEmailOrUsername() {
+        // Arrange
+        AppUser ValidUser = new AppUser("valid", "valid", "valid", "valid", "valid");
+        when(mockUserDAO.findUserByUsername(ValidUser.getUsername())).thenReturn(new AppUser());
+        when(mockUserDAO.findUserByEmail(ValidUser.getEmail())).thenReturn(new AppUser());
+        when(mockUserDAO.save(ValidUser)).thenReturn(ValidUser);
+        // Act
+        try {
+            boolean actualResult = sut.registerNewUser(ValidUser);
+        } finally {
+            // Assert
+            verify(mockUserDAO, times(0)).save(ValidUser);
+        }
+    }
+
+    @Test(expected = InvalidRequestException.class)
+    public void test_authenticateUser_throwsInvalidRequestException_givenInvalidUsernameOrInvalidPassword() {
+        // Arrange
+        AppUser ValidUser = new AppUser("valid", "valid", "valid", "valid", "valid");
+        String invalidUsername = " ",  invalidEmail = " ";
+        when(mockUserDAO.findUserByUsernameAndPassword(invalidUsername, invalidEmail)).thenReturn(new AppUser());
+        // Act
+        try {
+            sut.authenticateUser(invalidUsername, invalidEmail);
+        } finally {
+            // Assert
+        }
+    }
 }
