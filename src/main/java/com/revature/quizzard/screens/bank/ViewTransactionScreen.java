@@ -6,6 +6,7 @@ import com.revature.quizzard.models.BankAccount;
 import com.revature.quizzard.models.BankTransaction;
 import com.revature.quizzard.screens.Screen;
 import com.revature.quizzard.services.BankService;
+import com.revature.quizzard.util.Misc;
 import com.revature.quizzard.util.ScreenRouter;
 import com.revature.quizzard.util.collections.List;
 
@@ -32,7 +33,7 @@ public class ViewTransactionScreen extends Screen {
 
         try {
             NumberFormat formatter = NumberFormat.getCurrencyInstance();
-            List<BankAccount> bankAccountLists = bankService.getBackAccountsByUserId();
+            List<BankAccount> bankAccountLists = bankService.getBankAccountsByUserId();
             for (int i = 0; i < bankAccountLists.size(); i++) {
                 menu.append(i + 1);
                 menu.append(") ");
@@ -46,14 +47,28 @@ public class ViewTransactionScreen extends Screen {
             menu.append("> ");
             System.out.print(menu);
 
-            String account_selected = consoleReader.readLine();
-            int i_account_selected = Integer.parseInt(account_selected);
-            if (i_account_selected == bankAccountLists.size() + 1) {
-                router.navigate("/dashboard");
-            } else if (i_account_selected <= 0 && i_account_selected > bankAccountLists.size() + 1) {
-                System.out.println("You have made an invalid selection");
-                router.navigate("/dashboard");
+            String account_selected;
+            int i_account_selected;
+            do {
+                System.out.print(menu);
+
+                account_selected = consoleReader.readLine();
+                if (!Misc.isNumeric(account_selected)) {
+                    System.out.println("You have made an invalid selection");
+                    continue;
+                }
+                i_account_selected = Integer.parseInt(account_selected);
+
+                if (i_account_selected == bankAccountLists.size() + 1) {
+                    router.navigate("/dashboard");
+                } else if (0 < i_account_selected && i_account_selected <= bankAccountLists.size()) {
+                    break;
+                } else {
+                    System.out.println("You have made an invalid selection");
+                }
             }
+            while (true);
+
             // view the transaction history for an account
             List<BankTransaction> bankTransactions = bankService.getTransactionsByUserAccountId(bankAccountLists.get(i_account_selected - 1));
             menu2.append("Transactions of account : ").append(bankAccountLists.get(i_account_selected - 1).getAccountName()).append("\n");
@@ -61,8 +76,8 @@ public class ViewTransactionScreen extends Screen {
                 menu2.append(i + 1);
                 menu2.append(". ");
                 menu2.append(bankTransactions.get(i).getDate_added());
-                menu2.append(" | ");
 
+                menu2.append(" | ");
                 menu2.append(formatter.format(bankTransactions.get(i).getAmount()));
                 menu2.append("\n");
             }

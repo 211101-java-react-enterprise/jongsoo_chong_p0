@@ -15,32 +15,41 @@ public class OpenAccountScreen extends Screen {
 
     public OpenAccountScreen(BufferedReader consoleReader, ScreenRouter router, BankService bankService) {
         super("LoginScreen", "/open_bank_account", consoleReader, router);
-        this.bankService= bankService;
+        this.bankService = bankService;
     }
 
     @Override
     public void render() throws Exception {
 
         String menu =
-                "Please provide which bank account you want to open.\n"+
-                "1) Checking Account\n" +
-                "2) Saving Account\n" +
-                "> ";
-        System.out.print(menu);
-        String accountTypeSelection = consoleReader.readLine();
+                "\nPlease provide which kind of bank account you want to open.\n" +
+                        "1) Checking Account\n" +
+                        "2) Saving Account\n" +
+                        "3) Exit this menu\n" +
+                        "> ";
         String accountType = "";
-        switch (accountTypeSelection) {
-            case "1":
-                accountType = "Checking";
-                break;
-            case "2":
-                accountType = "Saving";
-                break;
-            default:
-                System.out.println("You have made an invalid selection");
+        boolean bContinue = false;
+        do {
+            System.out.print(menu);
+            String accountTypeSelection = consoleReader.readLine();
+            switch (accountTypeSelection) {
+                case "1":
+                    accountType = "Checking";
+                    break;
+                case "2":
+                    accountType = "Saving";
+                    break;
+                case "3":
+                    router.navigate("/dashboard");
+                    break;
+                default:
+                    bContinue=true;
+                    System.out.println("You have made an invalid selection");
+            }
         }
+        while (bContinue);
 
-        System.out.print("What name do you want to call it?\n" +
+        System.out.print("\nWhat name do you want to call it?\n" +
                 "> ");
 
         String accountName = consoleReader.readLine();
@@ -50,7 +59,8 @@ public class OpenAccountScreen extends Screen {
         bankAccount.setAccountName(accountName);
 
         try {
-            bankService.openBackAccount(bankAccount);
+            bankService.openBankAccount(bankAccount);
+            logger.log("Successful account opened!");
             router.navigate("/dashboard");
         } catch (InvalidRequestException | AuthenticationException e) {
             System.out.println(e.getMessage());

@@ -8,9 +8,15 @@ public class BankTransaction {
     private String date_added;
 
     private AppUser trader;
-    private BankAccount bankAccountTo;
+    private BankAccount bankAccountTarget;
 
     public BankTransaction() {
+    }
+
+    public BankTransaction(double amount, AppUser trader, BankAccount bankAccount_Target) {
+        this.amount = amount;
+        this.trader = trader;
+        this.bankAccountTarget = bankAccount_Target;
     }
 
     public BankTransaction(String bank_transaction_id, String bank_account_id, double amount, AppUser trader) {
@@ -52,12 +58,12 @@ public class BankTransaction {
         this.trader = trader;
     }
 
-    public BankAccount getBankAccountTo() {
-        return bankAccountTo;
+    public BankAccount getBankAccountTarget() {
+        return bankAccountTarget;
     }
 
     public void setBankAccount(BankAccount bankAccountTo) {
-        this.bankAccountTo = bankAccountTo;
+        this.bankAccountTarget = bankAccountTo;
     }
 
     public String getDate_added() {

@@ -29,7 +29,7 @@ public class LoginScreen extends Screen {
 
         try {
             userService.authenticateUser(username, password);
-            logger.log("Successful authentication of user: %s at %d", username, System.currentTimeMillis());
+            logger.log("Successful authentication of user: %s", username);
             router.navigate("/dashboard");
         } catch (InvalidRequestException | AuthenticationException e) {
             System.out.println(e.getMessage());

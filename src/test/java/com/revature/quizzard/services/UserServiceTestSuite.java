@@ -1,6 +1,7 @@
 package com.revature.quizzard.services;
 
 import com.revature.quizzard.daos.AppUserDAO;
+import com.revature.quizzard.exceptions.AuthenticationException;
 import com.revature.quizzard.exceptions.InvalidRequestException;
 import com.revature.quizzard.exceptions.ResourcePersistenceException;
 import com.revature.quizzard.models.AppUser;
@@ -145,30 +146,42 @@ public class UserServiceTestSuite {
     }
 
     @Test(expected = InvalidRequestException.class)
-    public void test_registerNewUser_throwsInvalidRequestException_givenUserWithDuplicatedEmailOrUsername() {
-        // Arrange
-        AppUser ValidUser = new AppUser("valid", "valid", "valid", "valid", "valid");
-        when(mockUserDAO.findUserByUsername(ValidUser.getUsername())).thenReturn(new AppUser());
-        when(mockUserDAO.findUserByEmail(ValidUser.getEmail())).thenReturn(new AppUser());
-        when(mockUserDAO.save(ValidUser)).thenReturn(ValidUser);
-        // Act
-        try {
-            boolean actualResult = sut.registerNewUser(ValidUser);
-        } finally {
-            // Assert
-            verify(mockUserDAO, times(0)).save(ValidUser);
-        }
-    }
-
-    @Test(expected = InvalidRequestException.class)
     public void test_authenticateUser_throwsInvalidRequestException_givenInvalidUsernameOrInvalidPassword() {
         // Arrange
         AppUser ValidUser = new AppUser("valid", "valid", "valid", "valid", "valid");
-        String invalidUsername = " ",  invalidEmail = " ";
+        String invalidUsername = " ", invalidEmail = " ";
         when(mockUserDAO.findUserByUsernameAndPassword(invalidUsername, invalidEmail)).thenReturn(new AppUser());
         // Act
         try {
             sut.authenticateUser(invalidUsername, invalidEmail);
+        } finally {
+            // Assert
+        }
+    }
+
+    @Test
+    public void test_authenticateUser__returnsTrue_givenValidUsernameValidPassword() {
+        // Arrange
+        AppUser ValidUser = new AppUser("valid", "valid", "valid", "valid", "valid");
+        String ValidUsername = "valid", ValidEmail = "valid";
+        when(mockUserDAO.findUserByUsernameAndPassword(ValidUsername, ValidEmail)).thenReturn(new AppUser());
+        // Act
+        try {
+            sut.authenticateUser(ValidUsername, ValidEmail);
+        } finally {
+            // Assert
+        }
+    }
+
+    @Test(expected = AuthenticationException.class)
+    public void test_authenticateUser_throwsAuthenticationException_givenValidUsernameOrValidPassword() {
+        // Arrange
+        AppUser ValidUser = new AppUser("valid", "valid", "valid", "valid", "valid");
+        String ValidUsername = "valid", ValidEmail = "valid";
+        when(mockUserDAO.findUserByUsernameAndPassword(ValidUsername, ValidEmail)).thenReturn(null);
+        // Act
+        try {
+            sut.authenticateUser(ValidUsername, ValidEmail);
         } finally {
             // Assert
         }

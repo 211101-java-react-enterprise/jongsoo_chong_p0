@@ -3,6 +3,7 @@ package com.revature.quizzard.util.logging;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.time.LocalDateTime;
 
 public class Logger {
 
@@ -44,11 +45,12 @@ public class Logger {
 
         try (Writer logWriter = new FileWriter("src/main/resources/logs/app.log", true)) {
 
+            String msg = String.format(LocalDateTime.now() + " " + message, args);
             String formattedMsg = String.format(message, args);
-            logWriter.write(formattedMsg + "\n");
+            logWriter.write(msg + "\n");
 
             if (printToConsole) {
-                System.out.println(ANSI_YELLOW + formattedMsg + ANSI_RESET);
+                System.out.println(LocalDateTime.now() + " " + ANSI_YELLOW + formattedMsg + ANSI_RESET);
             }
 
         } catch (IOException e) {

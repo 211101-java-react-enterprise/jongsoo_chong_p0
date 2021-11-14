@@ -4,22 +4,34 @@ public class BankAccount {
 
     private String bank_account_id;
     private String accountName;
-    private String AccountNumber;
+    private String accountNumber;
     private boolean isJoinedAccount;
     private String accountType;
     private double balance;
     private AppUser creator;
     private String date_added;
 
+    public BankAccount() {
+    }
+
+    public BankAccount(String accountName, String accountType) {
+        this.accountName = accountName;
+        this.accountType = accountType;
+    }
+
     public BankAccount(String accountName, String accountNumber, boolean isJoinedAccount, String accountType, double balance) {
         this.accountName = accountName;
-        AccountNumber = accountNumber;
+        this.accountNumber = accountNumber;
         this.isJoinedAccount = isJoinedAccount;
         this.accountType = accountType;
         this.balance = balance;
     }
 
-    public BankAccount() {
+    public BankAccount(String bank_account_id, String accountName, String accountNumber, boolean isJoinedAccount,
+                       String accountType, double balance, AppUser creator) {
+        this(accountName, accountNumber, isJoinedAccount, accountType, balance);
+        this.bank_account_id = bank_account_id;
+        this.creator = creator;
     }
 
     public String getBank_account_id() {
@@ -39,11 +51,11 @@ public class BankAccount {
     }
 
     public String getAccountNumber() {
-        return AccountNumber;
+        return accountNumber;
     }
 
     public void setAccountNumber(String accountNumber) {
-        AccountNumber = accountNumber;
+        this.accountNumber = accountNumber;
     }
 
     public boolean isJoinedAccount() {
@@ -91,7 +103,7 @@ public class BankAccount {
         return "BankAccount{" +
                 "id='" + bank_account_id + '\'' +
                 ", accountName='" + accountName + '\'' +
-                ", AccountNumber='" + AccountNumber + '\'' +
+                ", AccountNumber='" + accountNumber + '\'' +
                 ", isJoinedAccount=" + isJoinedAccount +
                 ", accountType=" + accountType +
                 '}';

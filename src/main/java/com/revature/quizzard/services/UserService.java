@@ -8,7 +8,7 @@ import com.revature.quizzard.models.AppUser;
 
 public class UserService {
 
-    private final AppUserDAO userDAO ;
+    private final AppUserDAO userDAO;
     private AppUser sessionUser;
 
     public UserService(AppUserDAO userDAO) {
@@ -18,6 +18,10 @@ public class UserService {
 
     public AppUser getSessionUser() {
         return sessionUser;
+    }
+
+    public void setSessionUser(AppUser sessionUser) {
+        this.sessionUser = sessionUser;
     }
 
     public boolean registerNewUser(AppUser newUser) {

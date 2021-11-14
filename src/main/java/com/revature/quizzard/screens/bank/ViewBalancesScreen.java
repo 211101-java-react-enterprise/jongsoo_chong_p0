@@ -3,7 +3,6 @@ package com.revature.quizzard.screens.bank;
 import com.revature.quizzard.exceptions.AuthenticationException;
 import com.revature.quizzard.exceptions.InvalidRequestException;
 import com.revature.quizzard.models.BankAccount;
-import com.revature.quizzard.models.BankTransaction;
 import com.revature.quizzard.screens.Screen;
 import com.revature.quizzard.services.BankService;
 import com.revature.quizzard.util.ScreenRouter;
@@ -29,7 +28,7 @@ public class ViewBalancesScreen extends Screen {
 
         try {
             NumberFormat formatter = NumberFormat.getCurrencyInstance();
-            List<BankAccount> bankAccountLists = bankService.getBackAccountsByUserId();
+            List<BankAccount> bankAccountLists = bankService.getBankAccountsByUserId();
             for (int i = 0; i < bankAccountLists.size(); i++) {
                 menu.append(i + 1);
                 menu.append(") ");

@@ -56,8 +56,7 @@ public class AppState {
         router.addScreen(new ViewTransactionScreen(consoleReader, router, bankService));
 
 
-        logger.log("Application initialized!");
-
+        logger.log("Successful application initialized!");
     }
 
     public void startup() {
