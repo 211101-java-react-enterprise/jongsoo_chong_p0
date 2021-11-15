@@ -75,24 +75,23 @@ public class ViewTransactionScreen extends Screen {
             // view the transaction history for an account
             List<BankTransaction> bankTransactions = bankService.getTransactionsByUserAccountId(bankAccountLists.get(i_account_selected - 1));
             menu2.append("Transactions of account : ").append(bankAccountLists.get(i_account_selected - 1).getAccountName()).append("\n");
-            if( bankTransactions.size() == 0){
+            if (bankTransactions.size() == 0) {
                 System.out.print(menu2);
                 System.out.println("\nYou don't have a transaction.");
-            }else {
+            } else {
                 for (int i = 0; i < bankTransactions.size(); i++) {
                     menu2.append(i + 1);
                     menu2.append(". ");
                     menu2.append(bankTransactions.get(i).getDate_added());
 
                     menu2.append(" | ");
-
-                    if( bankTransactions.get(i).getBank_account_id_from().equals(bankTransactions.get(i).getBank_account_id_to())
-
-                    && bankTransactions.get(i).getBank_account_id_to().equals(bankAccountLists.get(i_account_selected - 1).getBank_account_id())
-                    ) {
+                    // minus amount of transfer is stored in bank_transactions
+                    if (!bankTransactions.get(i).getBank_account_id_from()
+                            .equals(bankTransactions.get(i).getBank_account_id_to())
+                            && bankTransactions.get(i).getBank_account_id_to().equals(bankAccountLists.get(i_account_selected - 1).getBank_account_id())
+                                    ) {
                         menu2.append(formatter.format(-bankTransactions.get(i).getAmount()));
-                    }
-                    else {
+                    } else {
                         menu2.append(formatter.format(bankTransactions.get(i).getAmount()));
                     }
                     menu2.append("\n");

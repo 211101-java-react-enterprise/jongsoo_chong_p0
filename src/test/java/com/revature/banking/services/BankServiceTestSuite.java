@@ -139,9 +139,9 @@ public class BankServiceTestSuite {
         AppUser mockAppUser = mock(AppUser.class);
         when(mockUserService.getSessionUser()).thenReturn(validUser);
         when(mockAppUser.getId()).thenReturn("validUser");
-        when(mockBankDAO.findBankAccountsByUserId("valid")).thenReturn(validBankAccountsLists);
+        when(mockBankDAO.findBankAccountsByUserId("valid","Me")).thenReturn(validBankAccountsLists);
 
-        List<BankAccount> actualResult = but.getBankAccountsByUserId();
+        List<BankAccount> actualResult = but.getBankAccountsByUserId("Me");
 
         Assert.assertNotNull("Expected result to be true with valid user id provided.", actualResult);
     }
@@ -165,6 +165,43 @@ public class BankServiceTestSuite {
         }
     }
 
+    // ------------------------------------
+    @Test
+    public void test_getBankAccountsByOthersThanBankAccountId_returnsTrue_givenValidUBankAccountId() {
+
+        BankAccount validBankAccount = new BankAccount("valid", "valid");
+        List<BankAccount> validBankAccountsLists = new LinkedList<>();
+        validBankAccountsLists.add(validBankAccount);
+        AppUser validUser = new AppUser("valid", "valid", "valid", "valid", "valid", "valid");
+        AppUser mockAppUser = mock(AppUser.class);
+        when(mockUserService.getSessionUser()).thenReturn(validUser);
+        when(mockAppUser.getId()).thenReturn("validUser");
+        when(mockBankDAO.findBankAccountsByOthersThanBankAccountId("valid")).thenReturn(validBankAccountsLists);
+
+        List<BankAccount> actualResult = but.getBankAccountsByOthersThanBankAccountId("valid");
+
+        Assert.assertNotNull("Expected result to be true with valid user id provided.", actualResult);
+    }
+
+    @Test(expected = ResourcePersistenceException.class)
+    public void test_getBankAccountsByOthersThanBankAccountId_throwsResourcePersistenceException_givenInValidUBankAccountId() {
+
+        BankAccount validBankAccount = new BankAccount("valid", "valid");
+        List<BankAccount> validBankAccountsLists = new LinkedList<>();
+        validBankAccountsLists.add(validBankAccount);
+        AppUser validUser = new AppUser("valid", "valid", "valid", "valid", "valid", "valid");
+        AppUser mockAppUser = mock(AppUser.class);
+        when(mockUserService.getSessionUser()).thenReturn(validUser);
+        when(mockAppUser.getId()).thenReturn("validUser");
+        when(mockBankDAO.findBankAccountsByOthersThanBankAccountId("valid")).thenReturn(null);
+
+        try {
+            List<BankAccount> actualResult = but.getBankAccountsByOthersThanBankAccountId("valid");
+        } finally {
+            ;
+        }
+    }
+    // ------------------------------------
     @Test
     public void test_transact_returnsTrue_givenBankTransaction() {
 

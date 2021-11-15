@@ -193,6 +193,9 @@ public class BankDAO implements CrudDAO<BankAccount> {
                 bankTransaction.setDate_added(rs.getString("t_date_added"));
                 bankTransaction.setAmount(rs.getDouble("amount"));
 
+                bankTransaction.setBank_account_id_From(rs.getString("bank_account_id_from"));
+                bankTransaction.setBank_account_id_To(rs.getString("bank_account_id_to"));
+
                 bankAccount.setAccountName(rs.getString("account_name"));
                 bankAccount.setAccountType(rs.getString("account_type"));
 
