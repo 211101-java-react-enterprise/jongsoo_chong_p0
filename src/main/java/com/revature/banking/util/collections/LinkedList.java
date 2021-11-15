@@ -59,6 +59,7 @@ public class LinkedList<T> implements List<T> {
         Node<T> currentNode = head;
 
         // If the list is empty, there is no data to remove.
+
         // Return false to indicate that remove operation was not performed successfully since the data was not present.
         if (size == 0) {
             return false;

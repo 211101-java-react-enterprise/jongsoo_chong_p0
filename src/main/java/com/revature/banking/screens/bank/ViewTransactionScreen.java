@@ -85,7 +85,16 @@ public class ViewTransactionScreen extends Screen {
                     menu2.append(bankTransactions.get(i).getDate_added());
 
                     menu2.append(" | ");
-                    menu2.append(formatter.format(bankTransactions.get(i).getAmount()));
+
+                    if( bankTransactions.get(i).getBank_account_id_from().equals(bankTransactions.get(i).getBank_account_id_to())
+
+                    && bankTransactions.get(i).getBank_account_id_to().equals(bankAccountLists.get(i_account_selected - 1).getBank_account_id())
+                    ) {
+                        menu2.append(formatter.format(-bankTransactions.get(i).getAmount()));
+                    }
+                    else {
+                        menu2.append(formatter.format(bankTransactions.get(i).getAmount()));
+                    }
                     menu2.append("\n");
                 }
                 System.out.print(menu2);
