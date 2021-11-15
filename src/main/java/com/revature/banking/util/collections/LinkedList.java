@@ -47,6 +47,11 @@ public class LinkedList<T> implements List<T> {
         return size == 0;
     }
 
+    // make it empty
+    public void clear() {
+        head = null;
+    }
+
     @Override
     public boolean remove(T data) {
 
@@ -141,7 +146,7 @@ public class LinkedList<T> implements List<T> {
 //        System.out.println("This is an overridden default method.");
 //    }
 
-//    @Override // static methods inherited from interfaces CANNOT be overridden; but
+    //    @Override // static methods inherited from interfaces CANNOT be overridden; but
     public static void staticMethodExample() {
         System.out.println("This is a method that shadows the static method declared by List");
     }

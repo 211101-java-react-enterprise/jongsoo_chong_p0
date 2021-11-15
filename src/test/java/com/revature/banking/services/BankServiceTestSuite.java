@@ -139,7 +139,7 @@ public class BankServiceTestSuite {
         AppUser mockAppUser = mock(AppUser.class);
         when(mockUserService.getSessionUser()).thenReturn(validUser);
         when(mockAppUser.getId()).thenReturn("validUser");
-        when(mockBankDAO.findBankAccountsByCreatorId("valid")).thenReturn(validBankAccountsLists);
+        when(mockBankDAO.findBankAccountsByUserId("valid")).thenReturn(validBankAccountsLists);
 
         List<BankAccount> actualResult = but.getBankAccountsByUserId();
 
@@ -156,7 +156,7 @@ public class BankServiceTestSuite {
         AppUser mockAppUser = mock(AppUser.class);
         when(mockUserService.getSessionUser()).thenReturn(validUser);
         when(mockAppUser.getId()).thenReturn("validUser");
-        when(mockBankDAO.findBankAccountsByCreatorId("valid")).thenReturn(null);
+        when(mockBankDAO.findBankAccountsByUserId("valid")).thenReturn(null);
 
         try {
             List<BankAccount> actualResult = but.getBankAccountsByUserId();
@@ -172,12 +172,12 @@ public class BankServiceTestSuite {
         BankAccount bankAccount = new BankAccount();
         bankAccount.setBank_account_id("valid");
         BankTransaction bankTransaction = new BankTransaction(999, validUser, bankAccount);
-        when(mockBankDAO.deposit_withdraw(bankTransaction)).thenReturn(bankTransaction);
+        when(mockBankDAO.transact(bankTransaction)).thenReturn(bankTransaction);
 
         BankTransaction actualResult = but.transact(bankTransaction);
 
         Assert.assertNotNull("Expected result to be true with valid bank account provided.", actualResult);
-        verify(mockBankDAO, times(1)).deposit_withdraw(bankTransaction);
+        verify(mockBankDAO, times(1)).transact(bankTransaction);
     }
 
     @Test(expected = ResourcePersistenceException.class)
@@ -187,7 +187,7 @@ public class BankServiceTestSuite {
         BankAccount bankAccount = new BankAccount();
         bankAccount.setBank_account_id("valid");
         BankTransaction bankTransaction = new BankTransaction(999, validUser, bankAccount);
-        when(mockBankDAO.deposit_withdraw(bankTransaction)).thenReturn(null);
+        when(mockBankDAO.transact(bankTransaction)).thenReturn(null);
 
         try {
             BankTransaction actualResult = but.transact(bankTransaction);
@@ -204,12 +204,12 @@ public class BankServiceTestSuite {
         bankAccount.setBank_account_id("valid");
         bankAccount.setBalance(1);
         BankTransaction bankTransaction = new BankTransaction(-2, validUser, bankAccount);
-        when(mockBankDAO.deposit_withdraw(bankTransaction)).thenReturn(null);
+        when(mockBankDAO.transact(bankTransaction)).thenReturn(null);
 
         try {
             BankTransaction actualResult = but.transact(bankTransaction);
         } finally {
-            verify(mockBankDAO, times(0)).deposit_withdraw(bankTransaction);
+            verify(mockBankDAO, times(0)).transact(bankTransaction);
         }
     }
 

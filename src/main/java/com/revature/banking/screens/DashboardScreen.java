@@ -33,9 +33,11 @@ public class DashboardScreen extends Screen {
                     "1) Open a Bank account\n" +
                     "2) Deposit funds into an account\n" +
                     "3) Withdraw funds from an account\n" +
-                    "4) View the balance of my account(s)\n" +
-                    "5) view the transaction history for an account\n" +
-                    "6) Log Out\n" +
+                    "4) transfer money between accounts\n" +
+                            
+                    "5) View the balance of my account(s)\n" +
+                    "6) view the transaction history for an account\n" +
+                    "7) Log Out\n" +
                     "> ";
 
             System.out.print(menu);
@@ -53,12 +55,15 @@ public class DashboardScreen extends Screen {
                     router.navigate("/withdraw");
                     break;
                 case "4":
-                    router.navigate("/view_balances");
+                    router.navigate("/transfer");
                     break;
                 case "5":
-                    router.navigate("/view_transaction");
+                    router.navigate("/view_balances");
                     break;
                 case "6":
+                    router.navigate("/view_transaction");
+                    break;
+                case "7":
                     userService.logout();
                     router.navigate("/welcome");
                     break;

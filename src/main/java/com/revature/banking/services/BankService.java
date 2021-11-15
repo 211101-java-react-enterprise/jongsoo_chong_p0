@@ -43,14 +43,38 @@ public class BankService {
     }
 
     public List<BankAccount> getBankAccountsByUserId() {
+        return getBankAccountsByUserId("Me");
+    }
+
+    public List<BankAccount> getBankAccountsByUserId(String Others_or_Me) {
 
         if (!userService.isSessionActive()) {
             throw new AuthorizationException("No active user session to perform operation!");
         }
 
-        AppUser sessionUser  = userService.getSessionUser();
+        AppUser sessionUser = userService.getSessionUser();
         String userId = sessionUser.getId();
-        List<BankAccount> registeredBankAccounts = bankDAO.findBankAccountsByCreatorId(userId);
+
+        List<BankAccount> registeredBankAccounts = bankDAO.findBankAccountsByUserId(userId, Others_or_Me);
+
+        if (registeredBankAccounts == null) {
+            throw new ResourcePersistenceException("The bank account could not be persisted to the datasource!");
+        }
+
+        return registeredBankAccounts;
+    }
+
+
+    public List<BankAccount> getBankAccountsByOthersThanBankAccountId(String bankAccount_from_this) {
+
+        if (!userService.isSessionActive()) {
+            throw new AuthorizationException("No active user session to perform operation!");
+        }
+
+        AppUser sessionUser = userService.getSessionUser();
+        String userId = sessionUser.getId();
+
+        List<BankAccount> registeredBankAccounts = bankDAO.findBankAccountsByOthersThanBankAccountId(bankAccount_from_this);
 
         if (registeredBankAccounts == null) {
             throw new ResourcePersistenceException("The bank account could not be persisted to the datasource!");
@@ -66,11 +90,12 @@ public class BankService {
         }
 
         bankTransaction.setTrader(userService.getSessionUser());
-        if (bankTransaction.getBankAccountTarget().getBalance() + bankTransaction.getAmount() < 0) {
+        // withdraw, transfer
+        if (bankTransaction.getBankAccount_From().getBalance() + bankTransaction.getAmount() < 0) {
             throw new NotEnoughBalanceException();
         }
 
-        bankTransaction =  bankDAO.deposit_withdraw(bankTransaction);
+        bankTransaction = bankDAO.transact(bankTransaction);
 
         if (bankTransaction == null) {
             throw new ResourcePersistenceException("The transaction could not be persisted to the datasource!");
@@ -85,7 +110,7 @@ public class BankService {
             throw new AuthorizationException("No active user session to perform operation!");
         }
 
-        List<BankTransaction> bankTransactions =  bankDAO.findTransactionsByUserAccountId(bankAccount.getBank_account_id());
+        List<BankTransaction> bankTransactions = bankDAO.findTransactionsByUserAccountId(bankAccount.getBank_account_id());
 
         if (bankTransactions == null) {
             throw new ResourcePersistenceException("The transactions could not be persisted to the datasource!");

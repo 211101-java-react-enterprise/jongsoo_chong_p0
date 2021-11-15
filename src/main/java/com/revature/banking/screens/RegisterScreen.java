@@ -47,6 +47,7 @@ public class RegisterScreen extends Screen {
             router.navigate("/login");
         } catch (InvalidRequestException | ResourcePersistenceException e) {
             System.out.println(e.getMessage());
+            router.navigate("/welcome");
         } catch (Exception e) {
             // TODO log this unexpected exception to a file
             e.printStackTrace();

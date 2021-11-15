@@ -39,7 +39,7 @@ public class AppState {
         AppUserDAO userDAO = new AppUserDAO();
         UserService userService = new UserService(userDAO);
 
-        //userService.authenticateUser("asd", "asd"); // test - to avoid login
+        userService.authenticateUser("asd", "asd"); // test - to avoid login
 
         BankDAO bankDAO  = new BankDAO();
         BankService bankService = new BankService(bankDAO, userService);
@@ -52,6 +52,7 @@ public class AppState {
         router.addScreen(new OpenAccountScreen(consoleReader, router, bankService));
         router.addScreen(new DepositScreen(consoleReader, router, bankService));
         router.addScreen(new WithdrawScreen(consoleReader, router, bankService));
+        router.addScreen(new TransferScreen(consoleReader, router, bankService));
         router.addScreen(new ViewBalancesScreen(consoleReader, router, bankService));
         router.addScreen(new ViewTransactionScreen(consoleReader, router, bankService));
 
@@ -62,8 +63,8 @@ public class AppState {
 
         try {
             while (appRunning) {
-                router.navigate("/welcome");
-                //router.navigate("/dashboard"); // test
+                //router.navigate("/welcome");
+                router.navigate("/dashboard"); // test
             }
         } catch (Exception e) {
             e.printStackTrace();

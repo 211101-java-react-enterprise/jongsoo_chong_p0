@@ -7,6 +7,7 @@ public interface Collection<T> {
     boolean add(T element);
     boolean contains(T element);
     boolean isEmpty();
+    void clear();
     boolean remove(T element);
     int size();
 

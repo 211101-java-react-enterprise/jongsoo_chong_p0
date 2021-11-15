@@ -5,7 +5,7 @@ import com.revature.banking.util.ScreenRouter;
 
 import java.io.BufferedReader;
 
-public class DepositScreen extends DepositWithdrawScreen {
+public class DepositScreen extends TransactionScreen {
     public DepositScreen(BufferedReader consoleReader, ScreenRouter router, BankService bankService) {
         super(consoleReader, router, bankService,"deposit");
     }

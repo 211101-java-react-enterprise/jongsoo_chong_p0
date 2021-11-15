@@ -3,25 +3,27 @@ package com.revature.banking.models;
 public class BankTransaction {
 
     private String bank_transaction_id;
-    private String bank_account_id;
+    private String bank_account_id_from;
+    private String bank_account_id_to;
     private double amount;
     private String date_added;
 
     private AppUser trader;
-    private BankAccount bankAccountTarget;
+    private BankAccount bankAccount_From;
+    private BankAccount bankAccount_To;
 
     public BankTransaction() {
     }
 
-    public BankTransaction(double amount, AppUser trader, BankAccount bankAccount_Target) {
+    public BankTransaction(double amount, AppUser trader, BankAccount bankAccountFrom) {
         this.amount = amount;
         this.trader = trader;
-        this.bankAccountTarget = bankAccount_Target;
+        this.bankAccount_From = bankAccountFrom;
     }
 
-    public BankTransaction(String bank_transaction_id, String bank_account_id, double amount, AppUser trader) {
+    public BankTransaction(String bank_transaction_id, String bank_account_id_from, double amount, AppUser trader) {
         this.bank_transaction_id = bank_transaction_id;
-        this.bank_account_id = bank_account_id;
+        this.bank_account_id_from = bank_account_id_from;
         this.amount = amount;
         this.trader = trader;
     }
@@ -34,12 +36,12 @@ public class BankTransaction {
         this.bank_transaction_id = bank_transaction_id;
     }
 
-    public String getBank_account_id() {
-        return bank_account_id;
+    public String getBank_account_id_from() {
+        return bank_account_id_from;
     }
 
-    public void setBank_account_id(String bank_account_id) {
-        this.bank_account_id = bank_account_id;
+    public void setBank_account_id_From(String bank_account_id_from) {
+        this.bank_account_id_from = bank_account_id_from;
     }
 
     public double getAmount() {
@@ -58,12 +60,28 @@ public class BankTransaction {
         this.trader = trader;
     }
 
-    public BankAccount getBankAccountTarget() {
-        return bankAccountTarget;
+    public BankAccount getBankAccount_From() {
+        return bankAccount_From;
     }
 
-    public void setBankAccount(BankAccount bankAccountTo) {
-        this.bankAccountTarget = bankAccountTo;
+    public void setBankAccount_From(BankAccount bankAccountFrom) {
+        this.bankAccount_From = bankAccountFrom;
+    }
+
+    public String getBank_account_id_to() {
+        return bank_account_id_to;
+    }
+
+    public void setBank_account_id_To(String bank_account_id_to) {
+        this.bank_account_id_to = bank_account_id_to;
+    }
+
+    public BankAccount getBankAccount_To() {
+        return bankAccount_To;
+    }
+
+    public void setBankAccount_To(BankAccount bankAccount_To) {
+        this.bankAccount_To = bankAccount_To;
     }
 
     public String getDate_added() {
@@ -78,7 +96,7 @@ public class BankTransaction {
     public String toString() {
         return "BankTransaction{" +
                 "bank_transaction_id='" + bank_transaction_id + '\'' +
-                ", bank_account_id='" + bank_account_id + '\'' +
+                ", bank_account_id='" + bank_account_id_from + '\'' +
                 ", amount=" + amount +
                 ", trader=" + trader +
                 '}';
