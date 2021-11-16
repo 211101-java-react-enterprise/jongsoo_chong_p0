@@ -1,6 +1,5 @@
 drop table if exists bank_transactions;
 drop table if exists bank_accounts cascade;
-drop table if exists flashcards;
 drop table if exists app_users;
 
 create table app_users (
@@ -15,22 +14,6 @@ create table app_users (
     constraint app_users_pk
     primary key (user_id)
 );
-
-create table flashcards (
-    card_id varchar check (card_id <> ''),
-    question_text varchar not null check (question_text <> ''),
-    answer_text varchar not null check (answer_text <> ''),
-    creator_id varchar not null check (creator_id <> ''),
-    date_added timestamp NOT NULL DEFAULT LOCALTIMESTAMP,
-
-    constraint flashcards_pk
-    primary key (card_id),
-
-    constraint flashcard_creator_fk
-    foreign key (creator_id)
-    references app_users
-);
-
 
 create table bank_accounts (
     bank_account_id varchar check (bank_account_id <> ''),
@@ -47,7 +30,6 @@ create table bank_accounts (
     foreign key (creator_id)
     references app_users
 );
-
 
 create table bank_transactions (
     bank_transaction_id varchar check (bank_transaction_id <> ''),
@@ -73,3 +55,4 @@ create table bank_transactions (
     references bank_accounts
 );
 
+-- test --
