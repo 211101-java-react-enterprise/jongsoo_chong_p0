@@ -111,6 +111,11 @@ public class TransactionScreen extends Screen {
             // amount
             System.out.print("\nHow much do you want to " + getCate_of_transaction() + "?\n" + "> ");
             String amountInput = consoleReader.readLine();
+            if (!Misc.isNumeric(amountInput)) {
+                System.out.println("You have input an invalid number");
+                router.navigate("/dashboard");
+                return;
+            }
             double amount = Double.parseDouble(amountInput);
             if (cate_of_transaction.equals("withdraw") || cate_of_transaction.equals("transfer")) {
                 amount = -amount;

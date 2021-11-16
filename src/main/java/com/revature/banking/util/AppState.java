@@ -39,7 +39,7 @@ public class AppState {
         AppUserDAO userDAO = new AppUserDAO();
         UserService userService = new UserService(userDAO);
 
-        userService.authenticateUser("asd", "asd"); // test - to avoid login
+        //userService.authenticateUser("asd", "asd"); // test - to avoid login
 
         BankDAO bankDAO  = new BankDAO();
         BankService bankService = new BankService(bankDAO, userService);
@@ -63,8 +63,8 @@ public class AppState {
 
         try {
             while (appRunning) {
-                //router.navigate("/welcome");
-                router.navigate("/dashboard"); // test
+                router.navigate("/welcome");
+                //router.navigate("/dashboard"); // test
             }
         } catch (Exception e) {
             e.printStackTrace();

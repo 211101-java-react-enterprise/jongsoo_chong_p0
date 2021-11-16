@@ -60,8 +60,6 @@ public class BankDAO implements CrudDAO<BankAccount> {
             pstmt.setString(4, bankTransaction.getTrader().getId());
             pstmt.setDouble(5, bankTransaction.getAmount());
 
-            System.out.println(pstmt);
-
             int rowsInserted = pstmt.executeUpdate();
 
             if (rowsInserted != 0) {
@@ -104,8 +102,6 @@ public class BankDAO implements CrudDAO<BankAccount> {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, bankAccount_from_this);
 
-            System.out.println(pstmt);
-
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 BankAccount bankAccount = new BankAccount();
@@ -138,8 +134,6 @@ public class BankDAO implements CrudDAO<BankAccount> {
                     "order by b.date_added asc";
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, userId);
-
-            System.out.println(pstmt);
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
@@ -179,8 +173,6 @@ public class BankDAO implements CrudDAO<BankAccount> {
 
             PreparedStatement pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, creatorId);
-
-            System.out.println(pstmt);
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
