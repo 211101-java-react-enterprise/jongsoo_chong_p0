@@ -73,7 +73,12 @@ public class TransactionScreen extends Screen {
                 System.out.println("You have made an invalid selection");
                 continue;
             }
-            i_account_selected = Integer.parseInt(account_selected);
+            try {
+                i_account_selected = Integer.parseInt(account_selected);
+            }catch (NumberFormatException e){
+                System.out.println("You have made an invalid selection");
+                continue;
+            }
             if (i_account_selected == bankAccountLists.size() + 1) {
                 router.navigate("/dashboard");
             } else if (0 < i_account_selected && i_account_selected <= bankAccountLists.size()) {
