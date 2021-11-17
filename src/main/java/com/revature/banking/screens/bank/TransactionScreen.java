@@ -117,6 +117,11 @@ public class TransactionScreen extends Screen {
                 return;
             }
             double amount = Double.parseDouble(amountInput);
+            if(amount <= 0){
+                System.out.println("You have input an invalid number");
+                router.navigate("/dashboard");
+                return;
+            }
             if (cate_of_transaction.equals("withdraw") || cate_of_transaction.equals("transfer")) {
                 amount = -amount;
             }
