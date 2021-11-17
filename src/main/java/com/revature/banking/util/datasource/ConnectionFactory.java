@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-/**
+/*
  * Singleton Design Pattern
  *  - Creational pattern
  *  - Restricts a class so that only a single instance of it can be made within an application

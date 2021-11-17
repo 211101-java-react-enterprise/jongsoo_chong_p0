@@ -15,7 +15,7 @@ import static org.mockito.Mockito.*;
 public class UserServiceTestSuite {
 
     // System Under Test
-//    UserService sut = new UserService();
+    // UserService sut = new UserService();
     UserService sut;
     AppUserDAO mockUserDAO;
 

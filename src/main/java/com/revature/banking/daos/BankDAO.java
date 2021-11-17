@@ -39,9 +39,11 @@ public class BankDAO implements CrudDAO<BankAccount> {
     }
 
     public BankTransaction transact(BankTransaction bankTransaction) {
+        // transaction log
         save_transaction(bankTransaction);
-        // transfer
+        // transfer from
         update_balance(bankTransaction.getBankAccount_From(), bankTransaction.getAmount());
+        // transfer to
         if (!bankTransaction.getBankAccount_From().getBank_account_id().equals(bankTransaction.getBankAccount_To().getBank_account_id())) {
             update_balance(bankTransaction.getBankAccount_To(), -bankTransaction.getAmount());
         }

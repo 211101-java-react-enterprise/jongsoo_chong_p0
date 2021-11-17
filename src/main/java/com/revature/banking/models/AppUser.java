@@ -2,26 +2,6 @@ package com.revature.banking.models;
 
 import java.util.Objects;
 
-/*
-    POJO = Plain Ol' Java Object
-
-    Simple encapsulations of data. They do not have rich features, they simply hold related values.
-
-    Common convention re: class structures:
-        class {
-            fields
-            constructors
-            instance methods
-            overridden methods
-            static methods
-            nested classes/enums/interfaces
-        }
-
-    Common methods from java.lang.Object that are overridden in most POJOs:
-        - boolean equals(Object o)
-        - int hashCode()
-        - String toString()
- */
 public class AppUser extends Object {
 
     private String id;
